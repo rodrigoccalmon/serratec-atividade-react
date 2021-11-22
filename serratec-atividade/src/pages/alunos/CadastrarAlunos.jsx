@@ -1,6 +1,10 @@
 import axios from "axios";
 import { useState } from "react";
-import { Form, InputCadastro, ButtonCadastro } from "../../components/Cadastros";
+import {
+  Form,
+  InputCadastro,
+  ButtonCadastro,
+} from "../../components/Cadastros";
 import { API_URL } from "../../constants";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
@@ -12,7 +16,8 @@ const CadastrarAlunos = () => {
   const MySwal = withReactContent(Swal);
 
   const cadastrarAlunos = () => {
-    axios.post(API_URL, {
+    axios
+      .post(API_URL, {
         nome,
         idade,
         cidade,
@@ -22,7 +27,13 @@ const CadastrarAlunos = () => {
           MySwal.fire(<p>{response?.data?.message}</p>);
           limparCampos();
         }
-      });
+      }).catch(error => {
+        MySwal.fire({
+          icon: 'error',
+          title: 'ops',
+          text: error,
+        })
+      })
   };
 
   const limparCampos = () => {
