@@ -1,27 +1,30 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import { BrowserRouter, useRoutes } from "react-router-dom";
-import AlunosListagem from './pages/alunos/AlunosListagem';
-import Navbar from './components/NavBar';
-import { Container } from '@mui/material'
-import CadastrarAlunos from './pages/alunos/CadastrarAlunos';
+import React from "react";
+import ReactDOM from "react-dom";
+import "./index.css";
+import { BrowserRouter } from "react-router-dom";
+import Navbar from "./components/Navbar";
+import App from "./components/App";
+import MyContainer from './components/MyContainer'
+import GlobalContext from "./context";
+ 
 
-const Routes = () => {
-  const  routes = useRoutes([
-    { path: "/", element: <AlunosListagem /> },
-    { path: "/cadastrar-alunos", element: <CadastrarAlunos /> }
-  ]);
-  return routes
-}
+//arvore de compoentes abaixo.
 ReactDOM.render(
   <React.StrictMode>
-    <BrowserRouter>
+    <GlobalContext>
+    {/* mycontainer é só uma div que pega o tema para incluir no fundo da página. */}
+
+    <MyContainer>
+      <BrowserRouter>
+
+    {/* o componente NAVBAR possui o botão de escolha do tema. */}
+    
       <Navbar />
-      <Container maxWidth="lg">
-      <Routes />
-      </Container>
+      <App />
     </BrowserRouter>
+    </MyContainer>
+    </GlobalContext>
   </React.StrictMode>,
-  document.getElementById('root')
+  document.getElementById("root")
 );
+

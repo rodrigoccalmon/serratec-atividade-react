@@ -13,10 +13,24 @@ import { Button } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
+import EditIcon from "@mui/icons-material/Edit";
+import { useNavigate } from "react-router-dom";
+import Lottie from "react-lottie";
+import animationData from "../../lotties/9131-loading-green.json";
 
 const AlunosListagem = () => {
+  const navigate = useNavigate();
   const [alunos, setAlunos] = useState([]);
   const MySwal = withReactContent(Swal);
+
+  const defaultOptions = {
+    loop: true,
+    autoplay: true,
+    animationData: animationData,
+    rendererSettings: {
+      preserveAspectRatio: "xMidYMid slice",
+    },
+  };
 
   useEffect(() => {
     getAlunos();
@@ -24,7 +38,9 @@ const AlunosListagem = () => {
 
   const getAlunos = () => {
     axios.get(API_URL).then((response) => {
-      setAlunos(response.data);
+      setTimeout(() => {
+        setAlunos(response.data);
+      }, 3000);
     });
   };
 
@@ -56,34 +72,47 @@ const AlunosListagem = () => {
       });
   };
 
+  const editarAluno = (aluno) => {
+    navigate(`/editar-alunos/${aluno.id}`);
+  };
+
   return (
     <Box sx={{ marginTop: "25px" }}>
-      <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 700 }} aria-label="customized table">
-          <TableHead>
-            <TableRow>
-              <StyledTableCell>Nome</StyledTableCell>
-              <StyledTableCell>Idade</StyledTableCell>
-              <StyledTableCell>Cidade</StyledTableCell>
-              <StyledTableCell>Ações</StyledTableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {alunos.map((aluno) => (
-              <StyledTableRow>
-                <StyledTableCell>{aluno.nome}</StyledTableCell>
-                <StyledTableCell>{aluno.idade}</StyledTableCell>
-                <StyledTableCell>{aluno.cidade}</StyledTableCell>
-                <StyledTableCell align="right">
-                  <Button onClick={() => deletarAluno(aluno)} variant="text">
-                    <DeleteIcon />
-                  </Button>
-                </StyledTableCell>
-              </StyledTableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
+      {alunos.length > 0 ? (
+        <TableContainer component={Paper}>
+          <Table sx={{ minWidth: 700 }} aria-label="customized table">
+            <TableHead>
+              <TableRow>
+                <StyledTableCell>Nome</StyledTableCell>
+                <StyledTableCell>Idade</StyledTableCell>
+                <StyledTableCell>Cidade</StyledTableCell>
+                <StyledTableCell >Ações</StyledTableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {alunos.map((aluno) => (
+                <StyledTableRow>
+                  <StyledTableCell>{aluno.nome}</StyledTableCell>
+                  <StyledTableCell>{aluno.idade}</StyledTableCell>
+                  <StyledTableCell>{aluno.cidade}</StyledTableCell>
+                  <StyledTableCell align="right">
+                    <Button onClick={() => deletarAluno(aluno)} variant="text">
+                      <DeleteIcon />
+                    </Button>
+                    <Button onClick={() => editarAluno(aluno)} variant="text">
+                      <EditIcon />
+                    </Button>
+                  </StyledTableCell>
+                </StyledTableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      ) : (
+        <>
+          <Lottie options={defaultOptions} height={400} width={400} />
+        </>
+      )}
     </Box>
   );
 };
