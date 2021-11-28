@@ -9,7 +9,6 @@ import { ThemeWrapper } from "./styles";
 import { useContext } from "react";
 import TemaContext from "../../context/tema";
 
-
 export default function Navbar(props) {
   const { temaSelecionado, setTemaSelecionado } = useContext(TemaContext);
   const alterarTema = (e) => {
@@ -18,11 +17,12 @@ export default function Navbar(props) {
   };
 
   return (
+  
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar className="teste" position="static">
+      <AppBar sx={{backgroundColor: '#222', color: 'chartreuse'}} position="static">
         <Toolbar>
           <Link to="/">
-            <Button color="inherit">Lista de alunos</Button>
+            <Button   color="inherit">Lista de alunos</Button>
           </Link>
           <Link to="/cadastrar-alunos">
             <Button color="inherit">Cadastro de alunos</Button>

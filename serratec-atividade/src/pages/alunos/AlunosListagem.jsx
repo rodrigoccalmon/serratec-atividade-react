@@ -77,16 +77,16 @@ const AlunosListagem = () => {
   };
 
   return (
-    <Box sx={{ marginTop: "25px" }}>
+  <Box sx={{ marginTop: '25px'}}>
       {alunos.length > 0 ? (
         <TableContainer component={Paper}>
-          <Table sx={{ minWidth: 700 }} aria-label="customized table">
+          <Table sx={{ minWidth: 700,  }} aria-label="customized table">
             <TableHead>
               <TableRow>
-                <StyledTableCell>Nome</StyledTableCell>
+                <StyledTableCell >Nome</StyledTableCell>
                 <StyledTableCell>Idade</StyledTableCell>
                 <StyledTableCell>Cidade</StyledTableCell>
-                <StyledTableCell >Ações</StyledTableCell>
+                <StyledTableCell sx={{alignSelf: 'right'}}>Ações</StyledTableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -96,10 +96,10 @@ const AlunosListagem = () => {
                   <StyledTableCell>{aluno.idade}</StyledTableCell>
                   <StyledTableCell>{aluno.cidade}</StyledTableCell>
                   <StyledTableCell align="right">
-                    <Button onClick={() => deletarAluno(aluno)} variant="text">
+                    <Button sx={{color:'red'}} onClick={() => deletarAluno(aluno)} variant="text">
                       <DeleteIcon />
                     </Button>
-                    <Button onClick={() => editarAluno(aluno)} variant="text">
+                    <Button sx={{color:'red'}}  onClick={() => editarAluno(aluno)} variant="text">
                       <EditIcon />
                     </Button>
                   </StyledTableCell>

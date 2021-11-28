@@ -12,13 +12,19 @@ const Form = styled.form`
 const InputCadastro = styled(TextField)`
   width: 500px;
   margin: 15px auto;
+  border-radius: 50px;
+  border-color: chartreuse;
 
 `;
 
 const ButtonCadastro = styled(Button)`
   width: 500px;
   margin: auto;
-  background-color: #13293d;
+  background-color: #222;
+  border-radius: 10px;
+  border-color: chartreuse;
+  font-weight: 550;
+  
 `;
 
 
